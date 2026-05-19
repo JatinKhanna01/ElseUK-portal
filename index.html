@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Elsevier Customer Portal Concept</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell" aria-live="polite">
+      <section id="login-screen" class="screen screen-login active" aria-labelledby="login-title">
+        <header class="login-header">
+          <img class="brand-logo" src="https://cdn.elsevier.io/verona/includes/svg/wordmark-elsevier.svg" alt="Elsevier" />
+          <p class="prototype-note">Concept prototype, not affiliated with Elsevier.</p>
+        </header>
+
+        <div class="login-copy">
+          <p class="eyebrow">Practice customer access</p>
+          <h1 id="login-title">Sign in to manage your subscriptions</h1>
+          <p>Use your practice credentials to review access, usage, renewal options and new offers.</p>
+        </div>
+
+        <form id="login-form" class="login-card">
+          <label for="email">Email address</label>
+          <input id="email" name="email" type="email" autocomplete="email" value="dr.gratitude@examplepractice.co.uk" required />
+
+          <label for="password">Password</label>
+          <input id="password" name="password" type="password" autocomplete="current-password" value="password123" required />
+
+          <div class="form-row">
+            <button type="button" class="text-button" data-action="forgot">Forgot password?</button>
+          </div>
+
+          <button class="primary-button" type="submit">Sign in</button>
+          <p class="privacy-copy">
+            Your details are processed to provide account access and subscription services. See Privacy notice in Account.
+          </p>
+        </form>
+      </section>
+
+      <section id="portal-screen" class="screen screen-portal" aria-labelledby="page-title">
+        <header class="top-bar">
+          <img class="brand-logo compact" src="https://cdn.elsevier.io/verona/includes/svg/wordmark-elsevier.svg" alt="Elsevier" />
+          <button class="icon-button" type="button" data-action="open-account" aria-label="Open account">
+            <span aria-hidden="true">DG</span>
+          </button>
+        </header>
+
+        <section class="page page-home active" data-page="home">
+          <div class="welcome-block">
+            <p class="eyebrow">Dr. Gratitude's Medical Practice</p>
+            <h1 id="page-title">Welcome, Dr. Gratitude</h1>
+            <p>Annual subscriptions, usage highlights and renewal actions for your private practice.</p>
+          </div>
+
+          <div class="summary-grid" aria-label="Subscription summary">
+            <article class="metric">
+              <span class="metric-value">2</span>
+              <span class="metric-label">Active subscriptions</span>
+            </article>
+            <article class="metric">
+              <span class="metric-value">84%</span>
+              <span class="metric-label">Licence utilisation</span>
+            </article>
+            <article class="metric">
+              <span class="metric-value">42</span>
+              <span class="metric-label">Days to renewal</span>
+            </article>
+          </div>
+
+          <section class="content-section" aria-labelledby="home-subs-title">
+            <div class="section-heading">
+              <h2 id="home-subs-title">Subscriptions</h2>
+              <button class="text-button" type="button" data-nav="subscriptions">View all</button>
+            </div>
+            <div class="card-list compact-list" id="home-subscriptions"></div>
+          </section>
+
+          <section class="content-section" aria-labelledby="home-offers-title">
+            <div class="section-heading">
+              <h2 id="home-offers-title">New offers</h2>
+              <button class="text-button" type="button" data-action="compare-offers">Compare</button>
+            </div>
+            <div class="offer-strip" id="home-offers"></div>
+          </section>
+        </section>
+
+        <section class="page" data-page="subscriptions">
+          <div class="page-heading">
+            <p class="eyebrow">Annual access</p>
+            <h1>Subscriptions</h1>
+          </div>
+          <div class="card-list" id="subscriptions-list"></div>
+        </section>
+
+        <section class="page" data-page="usage">
+          <div class="page-heading">
+            <p class="eyebrow">Practice activity</p>
+            <h1>Usage</h1>
+          </div>
+          <article class="insight-panel">
+            <h2>Monthly trend</h2>
+            <div class="bar-chart" aria-label="Monthly use by subscription">
+              <span style="height: 62%"></span>
+              <span style="height: 78%"></span>
+              <span style="height: 55%"></span>
+              <span style="height: 88%"></span>
+              <span style="height: 72%"></span>
+              <span style="height: 92%"></span>
+            </div>
+            <p>Searches and downloads increased by 18% over the previous quarter. Mendeley library sync is active for both seats.</p>
+          </article>
+          <div class="usage-list" id="usage-list"></div>
+        </section>
+
+        <section class="page" data-page="support">
+          <div class="page-heading">
+            <p class="eyebrow">Help and contacts</p>
+            <h1>Support</h1>
+          </div>
+          <article class="support-card">
+            <h2>Account manager</h2>
+            <p>Priya Shah, UK Healthcare Accounts</p>
+            <button class="primary-button" type="button" data-action="contact">Contact account manager</button>
+          </article>
+          <article class="support-card">
+            <h2>Customer support</h2>
+            <p>For access issues, renewal questions or invoice support.</p>
+            <button class="secondary-button" type="button" data-action="ticket">Open support request</button>
+          </article>
+        </section>
+
+        <section class="page" data-page="account">
+          <div class="page-heading">
+            <p class="eyebrow">Practice profile</p>
+            <h1>Account</h1>
+          </div>
+          <article class="account-panel">
+            <dl>
+              <div><dt>Customer</dt><dd>Dr. Gratitude's Medical Practice</dd></div>
+              <div><dt>Signed in as</dt><dd>dr.gratitude@examplepractice.co.uk</dd></div>
+              <div><dt>Region</dt><dd>United Kingdom</dd></div>
+              <div><dt>Data protection</dt><dd>Account data is used for access, billing, support and service communications.</dd></div>
+            </dl>
+            <button class="secondary-button" type="button" data-action="sign-out">Sign out</button>
+          </article>
+        </section>
+
+        <nav class="bottom-nav" aria-label="Main navigation">
+          <button class="nav-item active" type="button" data-nav="home" aria-current="page">
+            <span class="nav-icon" aria-hidden="true">⌂</span>
+            <span>Home</span>
+          </button>
+          <button class="nav-item" type="button" data-nav="subscriptions">
+            <span class="nav-icon" aria-hidden="true">▤</span>
+            <span>Subscriptions</span>
+          </button>
+          <button class="nav-item" type="button" data-nav="usage">
+            <span class="nav-icon" aria-hidden="true">▥</span>
+            <span>Usage</span>
+          </button>
+          <button class="nav-item" type="button" data-nav="support">
+            <span class="nav-icon" aria-hidden="true">?</span>
+            <span>Support</span>
+          </button>
+          <button class="nav-item" type="button" data-nav="account">
+            <span class="nav-icon" aria-hidden="true">◦</span>
+            <span>Account</span>
+          </button>
+        </nav>
+      </section>
+    </main>
+
+    <dialog id="detail-dialog" class="modal">
+      <div class="modal-header">
+        <p class="eyebrow" id="modal-kicker">Subscription</p>
+        <button class="icon-button close-button" type="button" data-action="close-modal" aria-label="Close dialog">×</button>
+      </div>
+      <div id="modal-content"></div>
+    </dialog>
+
+    <div id="toast" class="toast" role="status"></div>
+    <script src="app.js"></script>
+  </body>
+</html>
