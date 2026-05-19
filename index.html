@@ -4,7 +4,386 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>Elsevier Customer Portal Concept</title>
-    <link rel="stylesheet" href="styles.css" />
+    <style>
+:root {
+  --brand-orange: #e9711c;
+  --brand-orange-dark: #c8540d;
+  --ink: #1f2933;
+  --muted: #5f6f7b;
+  --line: #d9e0e5;
+  --surface: #ffffff;
+  --surface-alt: #f5f7f8;
+  --focus: #2458d3;
+  --success: #236f4e;
+  --warning: #a15c00;
+  --shadow: 0 18px 44px rgba(25, 37, 45, 0.13);
+  font-family: "Elsevier Sans", "Nexus Sans", Arial, Helvetica, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body { min-height: 100%; }
+
+body {
+  margin: 0;
+  background: #dfe6ea;
+  color: var(--ink);
+  letter-spacing: 0;
+}
+
+button, input { font: inherit; }
+button { cursor: pointer; }
+
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+
+.app-shell {
+  width: min(100%, 430px);
+  min-height: 100vh;
+  margin: 0 auto;
+  background: var(--surface);
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.screen { display: none; min-height: 100vh; }
+.screen.active { display: block; }
+
+.screen-login {
+  padding: max(22px, env(safe-area-inset-top)) 22px 28px;
+  background:
+    linear-gradient(180deg, rgba(233, 113, 28, 0.1), rgba(255, 255, 255, 0) 38%),
+    var(--surface);
+}
+
+.login-header, .top-bar, .section-heading, .modal-header, .form-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.brand-logo { width: 112px; height: auto; display: block; }
+.brand-logo.compact { width: 98px; }
+
+.prototype-note {
+  max-width: 145px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.72rem;
+  line-height: 1.25;
+  text-align: right;
+}
+
+.login-copy { margin: 74px 0 28px; }
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: var(--brand-orange-dark);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+h1, h2, h3, p { overflow-wrap: anywhere; }
+
+h1, h2 {
+  margin: 0;
+  font-family: "Elsevier Serif", Georgia, "Times New Roman", serif;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+h1 { font-size: 2.15rem; line-height: 1.06; }
+h2 { font-size: 1.08rem; line-height: 1.2; }
+
+.login-copy p:last-child, .welcome-block p, .page-heading p,
+.support-card p, .insight-panel p, .privacy-copy {
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.login-card { display: grid; gap: 10px; }
+
+label { font-size: 0.87rem; font-weight: 700; }
+
+input {
+  width: 100%;
+  min-height: 48px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 0 14px;
+  background: var(--surface);
+  color: var(--ink);
+}
+
+.primary-button, .secondary-button, .text-button, .icon-button {
+  min-height: 44px;
+  border-radius: 8px;
+  border: 0;
+}
+
+.primary-button {
+  width: 100%;
+  padding: 0 16px;
+  background: var(--brand-orange);
+  color: #111;
+  font-weight: 800;
+}
+
+.secondary-button {
+  width: 100%;
+  padding: 0 16px;
+  background: #fff3eb;
+  color: #7f3600;
+  border: 1px solid #f1c3a2;
+  font-weight: 800;
+}
+
+.text-button {
+  padding: 0;
+  background: transparent;
+  color: #9a4300;
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.privacy-copy { margin: 8px 0 0; font-size: 0.78rem; }
+
+.screen-portal {
+  padding: max(16px, env(safe-area-inset-top)) 16px calc(88px + env(safe-area-inset-bottom));
+  background: var(--surface-alt);
+}
+
+.top-bar { min-height: 48px; }
+
+.icon-button {
+  width: 44px;
+  flex: 0 0 44px;
+  background: #fff;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  font-weight: 800;
+}
+
+.page { display: none; animation: fade-in 160ms ease-out; }
+.page.active { display: block; }
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.welcome-block, .page-heading { padding: 22px 0 16px; }
+.welcome-block h1, .page-heading h1 { margin-bottom: 10px; }
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.metric, .subscription-card, .offer-card, .insight-panel,
+.support-card, .account-panel, .usage-item {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.metric { min-height: 86px; padding: 12px 10px; }
+
+.metric-value {
+  display: block;
+  margin-bottom: 7px;
+  color: #111;
+  font-weight: 900;
+  font-size: 1.38rem;
+}
+
+.metric-label {
+  display: block;
+  color: var(--muted);
+  font-size: 0.73rem;
+  line-height: 1.2;
+}
+
+.content-section { margin-top: 22px; }
+.section-heading { margin-bottom: 10px; }
+.card-list, .usage-list { display: grid; gap: 12px; }
+
+.subscription-card { padding: 14px; }
+
+.subscription-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.subscription-card h3, .offer-card h3, .support-card h2, .insight-panel h2 {
+  margin: 0 0 8px;
+  font-size: 1rem;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 26px;
+  padding: 0 9px;
+  border-radius: 999px;
+  background: #eaf7ef;
+  color: var(--success);
+  font-size: 0.76rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.pill.warning { background: #fff5df; color: var(--warning); }
+
+.meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 10px 0 12px;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.action-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.action-row .primary-button,
+.action-row .secondary-button {
+  min-height: 40px;
+  font-size: 0.86rem;
+}
+
+.offer-strip {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(242px, 82%);
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scroll-snap-type: x mandatory;
+}
+
+.offer-card { padding: 14px; scroll-snap-align: start; }
+
+.price { margin: 12px 0; font-size: 1.35rem; font-weight: 900; }
+.price span { color: var(--muted); font-size: 0.82rem; font-weight: 700; }
+
+.bottom-nav {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+  padding: 8px 8px max(8px, env(safe-area-inset-bottom));
+  background: rgba(255, 255, 255, 0.96);
+  border-top: 1px solid var(--line);
+}
+
+.nav-item {
+  min-width: 0;
+  min-height: 58px;
+  background: transparent;
+  border: 0;
+  border-radius: 8px;
+  color: var(--muted);
+  font-size: 0.67rem;
+  font-weight: 800;
+}
+
+.nav-item.active { background: #fff0e6; color: #8b3e00; }
+
+.nav-icon { display: block; height: 22px; font-size: 1.1rem; line-height: 1; }
+
+.insight-panel, .support-card, .account-panel {
+  padding: 16px;
+  margin-bottom: 12px;
+}
+
+.bar-chart {
+  height: 128px;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  align-items: end;
+  gap: 9px;
+  padding: 12px;
+  margin: 14px 0;
+  background: #f0f4f5;
+  border-radius: 8px;
+}
+
+.bar-chart span {
+  display: block;
+  min-height: 16px;
+  background: linear-gradient(180deg, #f59a56, var(--brand-orange-dark));
+  border-radius: 5px 5px 0 0;
+}
+
+.usage-item { padding: 14px; }
+.usage-item progress { width: 100%; height: 10px; accent-color: var(--brand-orange); }
+
+dl { margin: 0 0 18px; display: grid; gap: 14px; }
+dt { color: var(--muted); font-size: 0.78rem; font-weight: 800; }
+dd { margin: 3px 0 0; line-height: 1.35; }
+
+.modal {
+  width: min(calc(100vw - 28px), 398px);
+  max-height: min(82vh, 740px);
+  border: 0;
+  border-radius: 8px;
+  padding: 16px;
+  color: var(--ink);
+  box-shadow: var(--shadow);
+}
+
+.modal::backdrop { background: rgba(21, 28, 34, 0.48); }
+.close-button { font-size: 1.35rem; }
+
+.detail-list { display: grid; gap: 10px; margin: 14px 0; }
+.detail-list div { padding: 10px 0; border-bottom: 1px solid var(--line); }
+.detail-list strong { display: block; margin-bottom: 3px; }
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 18px;
+  width: min(calc(100vw - 32px), 390px);
+  transform: translate(-50%, 18px);
+  opacity: 0;
+  pointer-events: none;
+  padding: 13px 14px;
+  border-radius: 8px;
+  background: #19252d;
+  color: white;
+  line-height: 1.35;
+  transition: opacity 160ms ease, transform 160ms ease;
+  z-index: 10;
+}
+
+.toast.active { opacity: 1; transform: translate(-50%, 0); }
+
+@media (max-width: 374px) {
+  .screen-login, .screen-portal { padding-left: 14px; padding-right: 14px; }
+  h1 { font-size: 1.86rem; }
+  .summary-grid { grid-template-columns: 1fr; }
+  .metric { min-height: 70px; }
+  .nav-item { font-size: 0.62rem; }
+}
+    </style>
   </head>
   <body>
     <main class="app-shell" aria-live="polite">
@@ -180,6 +559,258 @@
     </dialog>
 
     <div id="toast" class="toast" role="status"></div>
-    <script src="app.js"></script>
+
+    <script>
+const subscriptions = [
+  {
+    id: "clinical-medicine",
+    name: "Clinical Medicine Journals & E-Books Collection",
+    status: "Active",
+    renewal: "28 June 2026",
+    licence: "Professional mid tier",
+    seats: "2 seats",
+    usage: "142 article views, 38 full-text downloads",
+    admin: "Dr. Gratitude",
+    access: "Practice email/password credentials",
+    subjects: "General medicine, cardiology, dermatology, respiratory care",
+    billing: "Paid annually - £1,240/year, next invoice pending",
+    utilisation: 78,
+    addOn: "Mendeley library sync enabled"
+  },
+  {
+    id: "primary-care",
+    name: "Primary Care Reference Library",
+    status: "Expiring soon",
+    renewal: "18 June 2026",
+    licence: "Professional mid tier",
+    seats: "2 seats",
+    usage: "96 reference searches, 24 saved chapters",
+    admin: "Dr. Gratitude",
+    access: "Practice customer portal and product launcher",
+    subjects: "Primary care, patient education, diagnostics, prescribing support",
+    billing: "Renewal quote available - from £780/year",
+    utilisation: 90,
+    addOn: "Mendeley appears as a linked tool/add-on"
+  }
+];
+
+const offers = [
+  {
+    id: "upgrade-tier",
+    title: "Upgrade to Professional Plus",
+    copy: "Add deeper clinical collections and priority support for a two-seat practice plan.",
+    price: "from £1,690/year",
+    cta: "View upgrade"
+  },
+  {
+    id: "science-direct",
+    title: "ScienceDirect clinical topic collection",
+    copy: "Expand access to recent medical research in high-demand practice areas.",
+    price: "£399/year",
+    cta: "Launch offer"
+  },
+  {
+    id: "renewal-bundle",
+    title: "Annual renewal bundle",
+    copy: "Renew both active subscriptions together with invoice consolidation.",
+    price: "Request quote",
+    cta: "Request quote"
+  }
+];
+
+const pageTitle = {
+  home: "Welcome, Dr. Gratitude",
+  subscriptions: "Subscriptions",
+  usage: "Usage",
+  support: "Support",
+  account: "Account"
+};
+
+const portalScreen = document.querySelector("#portal-screen");
+const loginScreen = document.querySelector("#login-screen");
+const dialog = document.querySelector("#detail-dialog");
+const modalContent = document.querySelector("#modal-content");
+const modalKicker = document.querySelector("#modal-kicker");
+const toast = document.querySelector("#toast");
+
+function showToast(message) {
+  toast.textContent = message;
+  toast.classList.add("active");
+  window.clearTimeout(showToast.timer);
+  showToast.timer = window.setTimeout(() => toast.classList.remove("active"), 2600);
+}
+
+function renderSubscriptionCard(subscription, compact = false) {
+  const card = document.createElement("article");
+  card.className = "subscription-card";
+  card.innerHTML = `
+    <div class="subscription-top">
+      <div>
+        <h3>${subscription.name}</h3>
+        <p>${compact ? subscription.usage : subscription.addOn}</p>
+      </div>
+      <span class="pill ${subscription.status === "Expiring soon" ? "warning" : ""}">${subscription.status}</span>
+    </div>
+    <div class="meta-row">
+      <span>${subscription.renewal}</span>
+      <span>${subscription.seats}</span>
+      <span>${subscription.licence}</span>
+    </div>
+    <div class="action-row">
+      <button class="secondary-button" type="button" data-detail="${subscription.id}">Details</button>
+      <button class="primary-button" type="button" data-action="launch" data-name="${subscription.name}">Launch</button>
+    </div>
+  `;
+  return card;
+}
+
+function renderOfferCard(offer) {
+  const card = document.createElement("article");
+  card.className = "offer-card";
+  card.innerHTML = `
+    <h3>${offer.title}</h3>
+    <p>${offer.copy}</p>
+    <div class="price">${offer.price.includes("£") ? offer.price.replace("/year", "<span>/year</span>") : offer.price}</div>
+    <button class="secondary-button" type="button" data-offer="${offer.id}">${offer.cta}</button>
+  `;
+  return card;
+}
+
+function populate() {
+  document.querySelector("#home-subscriptions").replaceChildren(
+    ...subscriptions.map((s) => renderSubscriptionCard(s, true))
+  );
+  document.querySelector("#subscriptions-list").replaceChildren(
+    ...subscriptions.map((s) => renderSubscriptionCard(s))
+  );
+  document.querySelector("#home-offers").replaceChildren(...offers.map(renderOfferCard));
+  document.querySelector("#usage-list").replaceChildren(
+    ...subscriptions.map((s) => {
+      const item = document.createElement("article");
+      item.className = "usage-item";
+      item.innerHTML = `
+        <h3>${s.name}</h3>
+        <p>${s.usage}</p>
+        <progress value="${s.utilisation}" max="100">${s.utilisation}%</progress>
+      `;
+      return item;
+    })
+  );
+}
+
+function navigate(page) {
+  document.querySelectorAll(".page").forEach((el) => {
+    el.classList.toggle("active", el.dataset.page === page);
+  });
+  document.querySelectorAll(".nav-item").forEach((btn) => {
+    const active = btn.dataset.nav === page;
+    btn.classList.toggle("active", active);
+    active ? btn.setAttribute("aria-current", "page") : btn.removeAttribute("aria-current");
+  });
+  const heading = document.querySelector("#page-title");
+  if (heading) heading.textContent = pageTitle[page] || "";
+}
+
+function openSubscription(subscription) {
+  modalKicker.textContent = "Subscription detail";
+  modalContent.innerHTML = `
+    <h2>${subscription.name}</h2>
+    <div class="detail-list">
+      <div><strong>Status</strong>${subscription.status}</div>
+      <div><strong>Renewal date</strong>${subscription.renewal}</div>
+      <div><strong>Licence</strong>${subscription.licence}</div>
+      <div><strong>Seats</strong>${subscription.seats}</div>
+      <div><strong>Usage</strong>${subscription.usage}</div>
+      <div><strong>Admin/contact</strong>${subscription.admin}</div>
+      <div><strong>Access method</strong>${subscription.access}</div>
+      <div><strong>Covered subjects</strong>${subscription.subjects}</div>
+      <div><strong>Billing</strong>${subscription.billing}</div>
+    </div>
+    <div class="action-row">
+      <button class="primary-button" type="button" data-action="renew">Renew</button>
+      <button class="secondary-button" type="button" data-action="upgrade">Upgrade</button>
+      <button class="secondary-button" type="button" data-action="invoice">Invoice</button>
+      <button class="secondary-button" type="button" data-action="contact">Contact</button>
+    </div>
+  `;
+  dialog.showModal();
+}
+
+function openOffer(offer) {
+  modalKicker.textContent = "New offer";
+  modalContent.innerHTML = `
+    <h2>${offer.title}</h2>
+    <p>${offer.copy}</p>
+    <div class="price">${offer.price}</div>
+    <div class="detail-list">
+      <div><strong>Best for</strong>Small UK private practices seeking broader clinical research access.</div>
+      <div><strong>Billing</strong>Fictional prototype pricing. Final pricing would depend on contract and licence terms.</div>
+    </div>
+    <button class="primary-button" type="button" data-action="quote">Continue</button>
+  `;
+  dialog.showModal();
+}
+
+document.querySelector("#login-form").addEventListener("submit", (e) => {
+  e.preventDefault();
+  loginScreen.classList.remove("active");
+  portalScreen.classList.add("active");
+  navigate("home");
+  showToast("Signed in as Dr. Gratitude.");
+});
+
+document.addEventListener("click", (e) => {
+  const target = e.target.closest("button");
+  if (!target) return;
+
+  if (target.dataset.nav) { navigate(target.dataset.nav); return; }
+
+  if (target.dataset.detail) {
+    openSubscription(subscriptions.find((s) => s.id === target.dataset.detail));
+    return;
+  }
+
+  if (target.dataset.offer) {
+    openOffer(offers.find((s) => s.id === target.dataset.offer));
+    return;
+  }
+
+  const action = target.dataset.action;
+  if (!action) return;
+
+  const messages = {
+    forgot: "Password reset flow would send a secure email to the practice address.",
+    launch: `${target.dataset.name} would open in a new product session.`,
+    renew: "Renewal flow opened for review and approval.",
+    upgrade: "Upgrade options added to the comparison view.",
+    invoice: "Invoice download simulated: INV-2026-0642.pdf.",
+    contact: "Message prepared for Priya Shah, UK Healthcare Accounts.",
+    ticket: "Support request form opened for access or billing help.",
+    quote: "Quote request captured for follow-up.",
+    "compare-offers": "Offer comparison view opened.",
+    "open-account": "",
+    "close-modal": "",
+    "sign-out": "Signed out."
+  };
+
+  if (action === "close-modal") { dialog.close(); return; }
+  if (action === "open-account") { navigate("account"); return; }
+  if (action === "sign-out") {
+    portalScreen.classList.remove("active");
+    loginScreen.classList.add("active");
+  }
+
+  if (messages[action]) showToast(messages[action]);
+});
+
+dialog.addEventListener("click", (e) => {
+  const r = dialog.getBoundingClientRect();
+  if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) {
+    dialog.close();
+  }
+});
+
+populate();
+    </script>
   </body>
 </html>
